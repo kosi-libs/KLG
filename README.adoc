@@ -4,6 +4,7 @@
 :idprefix:
 :idseparator: -
 :source-highlighter: highlight.js
+:version: 0.1.0
 
 *Keep Last Generation: when KSP fails, your IDE keeps the code it generated last.*
 
@@ -19,12 +20,12 @@ toc::[]
 KLG is published on the Gradle Plugin Portal and on Maven Central.
 Apply it to every project that runs KSP:
 
-[source,kotlin]
+[source,kotlin,subs="verbatim,attributes"]
 .build.gradle.kts
 ----
 plugins {
     id("com.google.devtools.ksp") version "2.3.12"
-    id("org.kodein.gradle.klg") version "0.1.0"
+    id("org.kodein.gradle.klg") version "{version}"
 }
 ----
 

@@ -1,0 +1,45 @@
+= KLG
+:toc: macro
+:toclevels: 2
+:idprefix:
+:idseparator: -
+:source-highlighter: highlight.js
+
+*Keep Last Generation: when KSP fails, your IDE keeps the code it generated last.*
+
+Before running, a KSP task deletes everything it generated.
+When a processor reports an error, nothing is generated again: the build fails with that one error, but the IDE no longer finds any generated declaration, and marks every use of one as an error.
+KLG keeps a copy of each successful KSP generation, and puts it back in place when KSP fails, so that the IDE only shows the error that matters.
+
+toc::[]
+
+
+== Usage
+
+KLG is published on the Gradle Plugin Portal and on Maven Central.
+Apply it to every project that runs KSP:
+
+[source,kotlin]
+.build.gradle.kts
+----
+plugins {
+    id("com.google.devtools.ksp") version "2.3.12"
+    id("org.kodein.gradle.klg") version "0.1.0"
+}
+----
+
+There is nothing to configure, and applying it to a project without KSP does nothing.
+
+
+== How it works
+
+* Every time a KSP task succeeds, KLG copies what it generated to `build/klg/<task>/snapshot`.
+* A `klgRestoreLastGeneration` task runs after the KSP tasks of the project, whether they succeed or not.
+  When one of them failed, it puts that copy back in place of the task's outputs, and says so in the build output.
+* The build still fails with the processor's error, and the compiler still never runs on the restored code: it is only there for the IDE.
+* The next run of the KSP task deletes the restored files and generates everything again, as it always does.
+
+The restored code is the last successful generation, not the current one: code the failing change should have generated is still missing.
+
+KLG works with the configuration cache, and finds the KSP tasks by type name, so it doesn't depend on a particular KSP version.
+It is tested with KSP 2.3 on JVM and Kotlin Multiplatform projects.

@@ -1,0 +1,16 @@
+[versions]
+gradlePluginPublish = "2.2.1"       # https://plugins.gradle.org/plugin/com.gradle.plugin-publish
+kotlin = "2.4.21"                   # https://kotlinlang.org/docs/releases.html#release-history
+ksp = "2.3.12"                      # https://github.com/google/ksp/releases
+mavenPublish = "0.37.0"             # https://github.com/vanniktech/gradle-maven-publish-plugin/releases
+
+[plugins]
+gradlePluginPublish = { id = "com.gradle.plugin-publish", version.ref = "gradlePluginPublish" }
+
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+mavenPublish = { id = "com.vanniktech.maven.publish", version.ref = "mavenPublish" }
+
+[libraries]
+kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
+
+ksp-symbolProcessingApi = { module = "com.google.devtools.ksp:symbol-processing-api", version.ref = "ksp" }

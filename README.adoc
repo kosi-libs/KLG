@@ -24,7 +24,7 @@ Apply it to every project that runs KSP:
 .build.gradle.kts
 ----
 plugins {
-    id("com.google.devtools.ksp") version "2.3.12"
+    id("com.google.devtools.ksp") version "2.3.14"
     id("org.kodein.gradle.klg") version "{version}"
 }
 ----
